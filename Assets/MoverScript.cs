@@ -9,10 +9,13 @@ public class MoverScript : MonoBehaviour
 
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Camera cam;
+    [SerializeField] LineRenderer lineRenderer;
     // Start is called before the first frame update
     void Start()
     {
-        agent.GetComponent<NavMeshAgent>();
+        agent = FindObjectOfType<NavMeshAgent>();
+        cam = FindObjectOfType<Camera>();
+        lineRenderer = FindObjectOfType<LineRenderer>();
     }
 
     // Update is called once per frame
@@ -21,13 +24,10 @@ public class MoverScript : MonoBehaviour
 
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit))
         {
-            
             agent.SetDestination(hit.point);
-            Debug.Log(":)");
-        }
-        else
-        {
-            Debug.Log("???");
+            lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, cam.transform.forward);
+            lineRenderer.SetPosition(1, hit.point);
         }
 
     }
