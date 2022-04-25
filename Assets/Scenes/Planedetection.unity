@@ -211,7 +211,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 644c8ed43b9eb3840b3ee41805e49450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemToPlace: {fileID: 266020911673652613, guid: 3c70dc13652baaf4a99157a33e8691dc, type: 3}
+  gameObjectToInstantiate: {fileID: 266020911673652613, guid: 3c70dc13652baaf4a99157a33e8691dc, type: 3}
+  _planeManager: {fileID: 156015763}
+  _arPlane: {fileID: 4947949368126795293, guid: 5c514496fd780d245853d1165aac38b7, type: 3}
+--- !u!114 &156015768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156015762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 728ad7fae8e460a4ba41265c7308d757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AnchorPrefab: {fileID: 0}
 --- !u!1001 &833622965
 PrefabInstance:
   m_ObjectHideFlags: 0
