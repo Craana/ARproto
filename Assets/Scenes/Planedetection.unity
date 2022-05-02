@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8859402053434670544, guid: 21d4def2aacfb834588ab7d03f214dc7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8859402053434670544, guid: 21d4def2aacfb834588ab7d03f214dc7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -213,7 +213,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameObjectToInstantiate: {fileID: 266020911673652613, guid: 3c70dc13652baaf4a99157a33e8691dc, type: 3}
   _planeManager: {fileID: 156015763}
-  _arPlane: {fileID: 4947949368126795293, guid: 5c514496fd780d245853d1165aac38b7, type: 3}
 --- !u!114 &156015768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728ad7fae8e460a4ba41265c7308d757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AnchorPrefab: {fileID: 0}
+  m_AnchorPrefab: {fileID: 266020911673652613, guid: 3c70dc13652baaf4a99157a33e8691dc, type: 3}
 --- !u!1001 &833622965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -256,7 +255,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2486014469216490909, guid: b2f8c6f3c14404c418e02dc1b60642e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.57
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2486014469216490909, guid: b2f8c6f3c14404c418e02dc1b60642e5, type: 3}
       propertyPath: m_LocalPosition.z

@@ -24,7 +24,7 @@ public class ARTapToPlaceObject : MonoBehaviour
        
     }
 
-    bool TryGetTouchPosition(out Vector2 touchPosition)
+  /*  bool TryGetTouchPosition(out Vector2 touchPosition)
     {
         if (Input.touchCount > 0)
         {
@@ -34,15 +34,22 @@ public class ARTapToPlaceObject : MonoBehaviour
 
         touchPosition = default;
         return false;
-    }
+    }*/
+
     private void Update()
     {
-        if(!TryGetTouchPosition(out touchPosition))
+        /*   if(!TryGetTouchPosition(out touchPosition))
+           {
+               return;
+           }*/
+
+        Touch touch;
+        if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
         {
             return;
         }
 
-        if (_arraycastmanager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
+        if (_arraycastmanager.Raycast(touch.position, hits, TrackableType.PlaneWithinPolygon))
         {
             var hitPose = hits[0].pose;
 
