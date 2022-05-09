@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Planedetection.unity
-    guid: 6d57fa38be7f4f44baab9aadaa152e33
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
-    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 8f25d245000c9834386c15fda4e68618, type: 2}
-    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 48a4f0b703048e44289275ce6c019923, type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: be5fcef40ed2edf4c9c67a0291fe3feb, type: 2}
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: e74c78c484a21714686b5a81806a997a, type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 8b7516e6e597f0e49987f6a1b5d1b143, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: fda06f897d7807a4aabe6c12808efdc8, type: 2}

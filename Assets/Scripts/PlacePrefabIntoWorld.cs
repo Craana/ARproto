@@ -8,47 +8,35 @@ using UnityEngine.XR.ARSubsystems;
 public class PlacePrefabIntoWorld : MonoBehaviour
 {
    private ARRaycastManager m_RaycastManager;
-    private GameObject spawnedObject;
     [SerializeField] GameObject PlaceablePrefab;
-
-    static List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
+    private ARAnchorManager m_AnchorManager;
+    bool isPLaced = false;
+    private ARPlaneManager m_planeManager;
 
     private void Awake()
     {
         m_RaycastManager = GetComponent<ARRaycastManager>();
-    }
-
-    bool TryGetTouchPosition(out Vector2 touchPosition)
-    {
-        if(Input.touchCount > 0)
-        {
-            touchPosition = Input.GetTouch(0).position;
-            return true;
-        }
-
-        touchPosition = default;
-        return false;
+        m_AnchorManager = GetComponent<ARAnchorManager>();
+        m_planeManager = GetComponent<ARPlaneManager>();
     }
 
     private void Update()
     {
-        if (!TryGetTouchPosition(out Vector2 touchPosition))
+        if (Input.touchCount > 0)
         {
-            return;
-        }
-        if (m_RaycastManager.Raycast(touchPosition, s_Hits, TrackableType.PlaneWithinPolygon))
-        {
-            var hitPos = s_Hits[0].pose;
-            if (spawnedObject == null)
+
+            List<ARRaycastHit> s_Hits = new List<ARRaycastHit>();
+            if (m_RaycastManager.Raycast(Input.GetTouch(0).position, s_Hits, TrackableType.Planes) && isPLaced == false)
             {
-                spawnedObject = Instantiate(PlaceablePrefab, hitPos.position, hitPos.rotation);
+                    ARAnchor anchor = m_AnchorManager.AttachAnchor((ARPlane)s_Hits[0].trackable, s_Hits[0].pose);
                 PlaceablePrefab.SetActive(true);
-            }
-            else
-            {
-                spawnedObject.transform.position = hitPos.position;
-                spawnedObject.transform.rotation = hitPos.rotation; 
+                PlaceablePrefab.transform.parent = anchor.transform;
+                PlaceablePrefab.transform.localPosition = Vector3.zero;
+                //After instantiating playfield, I need to disable the 
+               
+                m_planeManager.enabled = false;
+                isPLaced = true;
             }
         }
-    }
+        }
 }
