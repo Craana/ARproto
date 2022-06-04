@@ -14,13 +14,14 @@ public class MoverScript : MonoBehaviour
 	[SerializeField] Transform bodyPart;
 	
 	List<Transform> body = new List<Transform>();
-	//Remove these if does not work
+	//Remove these if it does not work
 	private float dis;
 	private Transform curBodyPart;
 	private Transform PrevBodyPart;
 	public float minDistance = 0.25f;
 	public float curspeed;
 	public LayerMask layerMask;
+
    // [SerializeField] LineRenderer lineRenderer;
 	// Start is called before the first frame update
 	void Start() 
@@ -28,11 +29,11 @@ public class MoverScript : MonoBehaviour
 
 		cam = FindObjectOfType<Camera>();
 	  body.Add(this.transform);
-		curspeed = speed;
+		
 	}
 
 	// Update is called once per frame
-	void FixedUpdate()
+	void Update()
 	{
 
 		if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, layerMask))
@@ -47,43 +48,46 @@ public class MoverScript : MonoBehaviour
 
 		}
 
-
-		/*for(int i = body.Count -1; i > 0 ; i --)
-		{
-			body[i].position = body[i -1].position;
-		}*/
 		for (int i = 1; i < body.Count; i++)
 		{
-			
+
 			curBodyPart = body[i];
 			PrevBodyPart = body[i - 1];
 
 			dis = Vector3.Distance(PrevBodyPart.position, curBodyPart.position);
 
-			Vector3 newpos = PrevBodyPart.position;
+			// Vector3 newpos = PrevBodyPart.position;
 
-			newpos.y = body[0].position.y;
+			//newpos = body[0].position;
 
 			float T = Time.deltaTime * dis / minDistance * curspeed;
-
-			if (T > 0.5f)
-				T = 0.5f;
-			curBodyPart.position = Vector3.Slerp(curBodyPart.position, newpos, T);
-			curBodyPart.rotation = Quaternion.Slerp(curBodyPart.rotation, PrevBodyPart.rotation, T);
-
-
-
+			float headtobodydistance = Vector3.Distance(body[0].position, body[1].position);
+			
+			
+            if (headtobodydistance <= 0.05f)
+            {
+				//Sqrmagnitude or normalized vector for each body part afer the head. hopefully this works
+				curBodyPart.position = (curBodyPart.position - PrevBodyPart.position).normalized * 0.05f + PrevBodyPart.position;
+            }
+            else {
+				if (T > 0.5f) T = 0.5f;
+				curBodyPart.position = Vector3.Slerp(curBodyPart.position, PrevBodyPart.position, T);
+				curBodyPart.rotation = Quaternion.Slerp(curBodyPart.rotation, PrevBodyPart.rotation, T);
+			}
+			
 		}
+
 	}
 
 
 	public void IncreaseTheSize()
 	{
-		Transform segment = Instantiate(this.bodyPart);
+		Transform segment = Instantiate(bodyPart);
 
 		segment.position=body[body.Count-1].position;
-
 		body.Add(segment);
+		
+
 	}
 
 }

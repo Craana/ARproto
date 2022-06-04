@@ -257,14 +257,6 @@ PrefabInstance:
       propertyPath: curspeed
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 715565092, guid: 3068f2b32cfa48149952f3dfb1a31d20, type: 3}
-      propertyPath: minDistance
-      value: 0.003
-      objectReference: {fileID: 0}
-    - target: {fileID: 715565092, guid: 3068f2b32cfa48149952f3dfb1a31d20, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 5622406733329756328, guid: 3068f2b32cfa48149952f3dfb1a31d20, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -313,9 +305,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Head
       objectReference: {fileID: 0}
-    - target: {fileID: 5622406733329756332, guid: 3068f2b32cfa48149952f3dfb1a31d20, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 6041918001208491696, guid: 3068f2b32cfa48149952f3dfb1a31d20, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3068f2b32cfa48149952f3dfb1a31d20, type: 3}
@@ -725,7 +717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6819588032820904167, guid: c22d483aa0d98c741ba75e293260885b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c22d483aa0d98c741ba75e293260885b, type: 3}
