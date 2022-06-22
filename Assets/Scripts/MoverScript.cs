@@ -13,28 +13,30 @@ public class MoverScript : MonoBehaviour
 	
 	[SerializeField] Transform bodyPart;
 	
-	List<Transform> body = new List<Transform>();
+	List<GameObject> body = new List<GameObject>();
 	//Remove these if it does not work
 	private float dis;
-	private Transform curBodyPart;
-	private Transform PrevBodyPart;
+	private GameObject curBodyPart;
+	private GameObject PrevBodyPart;
 	public float minDistance = 0.25f;
 	public float curspeed;
 	public LayerMask layerMask;
+	GameObject segment;
 
-   // [SerializeField] LineRenderer lineRenderer;
+	// [SerializeField] LineRenderer lineRenderer;
 	// Start is called before the first frame update
 	void Start() 
 	{
 
 		cam = FindObjectOfType<Camera>();
-	  body.Add(this.transform);
+	  body.Add(this.gameObject);
 		
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+       
 
 		if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, layerMask))
 		{
@@ -50,44 +52,50 @@ public class MoverScript : MonoBehaviour
 
 		for (int i = 1; i < body.Count; i++)
 		{
-
 			curBodyPart = body[i];
 			PrevBodyPart = body[i - 1];
-
-			dis = Vector3.Distance(PrevBodyPart.position, curBodyPart.position);
-
-			// Vector3 newpos = PrevBodyPart.position;
-
-			//newpos = body[0].position;
-
+			dis = Vector3.Distance(PrevBodyPart.transform.position, curBodyPart.transform.position);
 			float T = Time.deltaTime * dis / minDistance * curspeed;
-			float headtobodydistance = Vector3.Distance(body[0].position, body[1].position);
-			
-			
-            if (headtobodydistance <= 0.05f)
+			float headtobodydistance = Vector3.Distance(body[0].transform.position, body[1].transform.position);
+
+			if (T > 0.5f) T = 0.5f;
+			if (headtobodydistance <= 0.05f)
             {
-				//Sqrmagnitude or normalized vector for each body part afer the head. hopefully this works
-				curBodyPart.position = (curBodyPart.position - PrevBodyPart.position).normalized * 0.05f + PrevBodyPart.position;
+				
+				curBodyPart.transform.position = (curBodyPart.transform.position - PrevBodyPart.transform.position).normalized * 0.05f + PrevBodyPart.transform.position;
             }
             else {
-				if (T > 0.5f) T = 0.5f;
-				curBodyPart.position = Vector3.Slerp(curBodyPart.position, PrevBodyPart.position, T);
-				curBodyPart.rotation = Quaternion.Slerp(curBodyPart.rotation, PrevBodyPart.rotation, T);
+				
+				curBodyPart.transform.position = Vector3.Slerp(curBodyPart.transform.position, PrevBodyPart.transform.position, T);
+				curBodyPart.transform.rotation = Quaternion.Slerp(curBodyPart.transform.rotation, PrevBodyPart.transform.rotation, T);
 			}
 			
 		}
 
 	}
 
+	public void ResetThePosition()
+    {
+		this.gameObject.transform.position = new Vector3(0, 0, 0);
+    }
+
+	public void DeleteEveryBodyPart()
+    {
+		int i = 1;
+		while (i < body.Count)
+        {
+			Destroy(body[i]);
+			body.RemoveAt(i);
+			i++;
+		}
+    }
 
 	public void IncreaseTheSize()
 	{
-		Transform segment = Instantiate(bodyPart);
+		 segment = Instantiate(bodyPart.gameObject);
 
-		segment.position=body[body.Count-1].position;
+		segment.transform.position =body[body.Count-1].transform.position;
 		body.Add(segment);
-		
-
 	}
 
 }

@@ -8,20 +8,21 @@ public class WhenCollided : MonoBehaviour
 	{
 		if (other.gameObject.CompareTag("Player"))
 		{
-			Destroy(gameObject);
+			FruitSpawner fruitSpawner = FindObjectOfType<FruitSpawner>();
+			fruitSpawner.RelocateMe(this.gameObject);
+			ScoreKeeper scoreKeeper = FindObjectOfType<ScoreKeeper>();
+			scoreKeeper.IncreaseTheScore();
+			MoverScript moverScript = FindObjectOfType<MoverScript>();
+			moverScript.IncreaseTheSize();
 		}
 		  
 	}
 
+
 	private void OnDisable()
 	{
 		if(!this.gameObject.scene.isLoaded) return;
-		FruitSpawner fruitSpawner = FindObjectOfType<FruitSpawner>();
-		fruitSpawner.SpawnANewFruit();
-		ScoreKeeper scoreKeeper = FindObjectOfType<ScoreKeeper>();
-		scoreKeeper.Score++;
-		MoverScript moverScript = FindObjectOfType<MoverScript>();
-		moverScript.IncreaseTheSize();
+
 	}
 
 }

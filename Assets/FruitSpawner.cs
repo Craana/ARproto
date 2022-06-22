@@ -22,13 +22,10 @@ public class FruitSpawner : MonoBehaviour
             tempFruit.transform.parent = transform;
         }
     }
-
-   public void SpawnANewFruit()
+    
+    public void RelocateMe(GameObject fruit)
     {
-
-        var RandomPosition = new Vector3(Random.Range(-xPos, xPos), transform.localPosition.y, Random.Range(-zPos, zPos));
-        GameObject tempFruit = Instantiate(_spawnableObject, transform.position + RandomPosition, Quaternion.identity);
-        tempFruit.transform.parent = transform;
+        fruit.gameObject.transform.position = new Vector3(Random.Range(-xPos, xPos), transform.localPosition.y, Random.Range(-zPos, zPos));
     }
 
     // Update is called once per frame
