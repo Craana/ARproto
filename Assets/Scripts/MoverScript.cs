@@ -33,10 +33,62 @@ public class MoverScript : MonoBehaviour
 		
 	}
 
-	// Update is called once per frame
-	void Update()
+    private void FixedUpdate()
+    {
+		RaycastForMoving();
+		SnakeBodySystem();
+	}
+
+
+    void Update()
 	{
        
+
+		
+
+	}
+
+	public void ResetThePosition()
+    {
+		this.gameObject.transform.position = new Vector3(0, 0, 0);
+    }
+
+	public void DeleteEveryBodyPart()
+    {
+
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Body");
+		for (int i = 0; i < enemies.Length; i++) { GameObject.Destroy(enemies[i]); body.Remove(enemies[i]); }
+    }
+
+	void SnakeBodySystem()
+    {
+		for (int i = 1; i < body.Count; i++)
+		{
+
+			curBodyPart = body[i];
+			PrevBodyPart = body[i - 1];
+			dis = Vector3.Distance(PrevBodyPart.transform.position, curBodyPart.transform.position);
+			float T = Time.deltaTime * dis / minDistance * curspeed;
+			float headtobodydistance = Vector3.Distance(body[0].transform.position, body[1].transform.position);
+
+			if (T > 0.5f) T = 0.5f;
+			if (headtobodydistance <= 0.05f)
+			{
+
+				curBodyPart.transform.position = (curBodyPart.transform.position - PrevBodyPart.transform.position).normalized * 0.05f + PrevBodyPart.transform.position;
+			}
+			else
+			{
+
+				curBodyPart.transform.position = Vector3.Slerp(curBodyPart.transform.position, PrevBodyPart.transform.position, T);
+				curBodyPart.transform.rotation = Quaternion.Slerp(curBodyPart.transform.rotation, PrevBodyPart.transform.rotation, T);
+			}
+
+		}
+	}
+
+	private void RaycastForMoving()
+    {
 
 		if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, layerMask))
 		{
@@ -50,51 +102,13 @@ public class MoverScript : MonoBehaviour
 
 		}
 
-		for (int i = 1; i < body.Count; i++)
-		{
-			curBodyPart = body[i];
-			PrevBodyPart = body[i - 1];
-			dis = Vector3.Distance(PrevBodyPart.transform.position, curBodyPart.transform.position);
-			float T = Time.deltaTime * dis / minDistance * curspeed;
-			float headtobodydistance = Vector3.Distance(body[0].transform.position, body[1].transform.position);
-
-			if (T > 0.5f) T = 0.5f;
-			if (headtobodydistance <= 0.05f)
-            {
-				
-				curBodyPart.transform.position = (curBodyPart.transform.position - PrevBodyPart.transform.position).normalized * 0.05f + PrevBodyPart.transform.position;
-            }
-            else {
-				
-				curBodyPart.transform.position = Vector3.Slerp(curBodyPart.transform.position, PrevBodyPart.transform.position, T);
-				curBodyPart.transform.rotation = Quaternion.Slerp(curBodyPart.transform.rotation, PrevBodyPart.transform.rotation, T);
-			}
-			
-		}
-
-	}
-
-	public void ResetThePosition()
-    {
-		this.gameObject.transform.position = new Vector3(0, 0, 0);
-    }
-
-	public void DeleteEveryBodyPart()
-    {
-		int i = 1;
-		while (i < body.Count)
-        {
-			Destroy(body[i]);
-			body.RemoveAt(i);
-			i++;
-		}
     }
 
 	public void IncreaseTheSize()
 	{
 		 segment = Instantiate(bodyPart.gameObject);
 
-		segment.transform.position =body[body.Count-1].transform.position;
+		segment.transform.position = body[body.Count-1].transform.position;
 		body.Add(segment);
 	}
 

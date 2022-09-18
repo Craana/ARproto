@@ -46,27 +46,32 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged?.Invoke(newstate);
     }
 
-    private void HandleRestart()
+    public void HandleRestart()
     {
+        Debug.Log("RESTART");
         //Reset position for the snake, get rid of the body, spawn fruits, reset score and change the state for GameLoopGameState.
-        MoverScript ms = GetComponent<MoverScript>();
+        MoverScript ms = FindObjectOfType<MoverScript>();
         ms.DeleteEveryBodyPart();
         ms.ResetThePosition();
+        HealthScript hs = FindObjectOfType<HealthScript>();
+        hs.ResetHealth();
+        UpdateGameState(GameState.GameLoop);
     }
 
     private void HandleEndgame()
     {
         //Take the score, show it middle of the screen. Spawn a button where player can restart the game.
+        Debug.Log("END");
     }
 
     private void HandleGameloop()
     {
-       
+        Debug.Log("GAME LOOP");
     }
 
     private void HandleStart()
     {
-       
+        Debug.Log("START");
     }
 
     public enum GameState

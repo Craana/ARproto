@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class ScoreKeeper : MonoBehaviour
 {
-    private static int _score;
-    public static int Score { get { return _score; } }
+    public int _score;
+    
     [SerializeField] Text scoreText;
     
     void Start()
@@ -22,7 +22,7 @@ public class ScoreKeeper : MonoBehaviour
     private void GameManagerGameStateChanged(GameManager.GameState state)
     {
         scoreText.gameObject.SetActive(state == GameManager.GameState.GameLoop);
-        if (state == GameManager.GameState.End)
+        if (state == GameManager.GameState.Restart)
         {
             ResetTheScore();
         }
@@ -45,9 +45,5 @@ public class ScoreKeeper : MonoBehaviour
         _score++;
     }
 
-    public static int EndScore()
-    {
-        return Score;
-    }
 
 }

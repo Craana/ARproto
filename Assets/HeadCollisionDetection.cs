@@ -9,6 +9,8 @@ public class HeadCollisionDetection : MonoBehaviour
         if (other.gameObject.CompareTag("Body"))
         {
             Debug.Log("I hit something!");
+            HealthScript hs = GetComponent<HealthScript>();
+            hs.DecreaseHealth();
         }
     }
 }

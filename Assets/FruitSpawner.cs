@@ -9,7 +9,7 @@ public class FruitSpawner : MonoBehaviour
     public int amountOfFruits = 5;
     float zPos = 1;
     float xPos = 1;
-    Vector3 parentlocalPosition;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -17,20 +17,22 @@ public class FruitSpawner : MonoBehaviour
         //Plane localtransform is -1 to 1 on both axes.
         for (int i = 0; i <  amountOfFruits; i++)
         {
-            var RandomPosition = new Vector3(Random.Range(-xPos, xPos), transform.localPosition.y, Random.Range(-zPos,zPos));
-            GameObject tempFruit = Instantiate(_spawnableObject, transform.position + RandomPosition, Quaternion.identity);
-            tempFruit.transform.parent = transform;
+            var RandomPosition = new Vector3(Random.Range(_planeTransform.position.x + -xPos, _planeTransform.position.x + xPos), _planeTransform.position.y, Random.Range(_planeTransform.transform.position.z + -zPos,_planeTransform.position.x + zPos));
+            GameObject tempFruit = Instantiate(_spawnableObject, RandomPosition, Quaternion.identity);
+            tempFruit.transform.parent = _planeTransform.transform;
         }
     }
     
     public void RelocateMe(GameObject fruit)
     {
-        fruit.gameObject.transform.position = new Vector3(Random.Range(-xPos, xPos), transform.localPosition.y, Random.Range(-zPos, zPos));
+        fruit.transform.parent = transform;
+        fruit.gameObject.transform.position = new Vector3(Random.Range(_planeTransform.position.x + -xPos,
+               _planeTransform.position.x + xPos), _planeTransform.transform.position.y + 0.025f, 
+                Random.Range(_planeTransform.position.z + -zPos,_planeTransform.transform.position.z + zPos));
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
